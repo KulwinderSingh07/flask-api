@@ -1,0 +1,6 @@
+from app import app
+from model.user_model import user_model
+obj=user_model()
+@app.route("/user/getall")
+def signup():
+    return obj.user_getall_model()
