@@ -10,3 +10,8 @@ def user_getall_controller():
 def user_addone_controller():
     # print(request.form)
     return obj.user_addone_model(request.form)
+
+@app.route("/user/updateone",methods=["PUT"])
+def user_update_controller():
+    # print(request.form)
+    return obj.user_updateone_model(request.form)

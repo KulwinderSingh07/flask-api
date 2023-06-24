@@ -24,3 +24,11 @@ class user_model():
         # self.curr.execute("select * from User")
         self.curr.execute(f"insert into User(name,email,phone,password) values('{data['name']}','{data['email']}','{data['phone']}','{data['password']}')")
         return "user created succesfully"
+
+    def user_updateone_model(self,data):
+        self.curr.execute(f"update User set name='{data['name']}', email='{data['email']}', phone='{data['phone']}', password='{data['password']}', role='{data['role']}' where id={data['id']}")
+        print(self.curr.rowcount)
+        if self.curr.rowcount>0:
+            return "user updated succesfully"
+        else:
+            return "User not updated"
