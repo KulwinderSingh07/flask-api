@@ -17,7 +17,7 @@ class user_model():
     def user_getall_model(self):
         self.curr.execute("select * from User")
         result=self.curr.fetchall()
-        print(result)
+        # print(result)
         if len(result)>0:
             res=make_response({"payload":result},200)
             res.headers['Access-Control-Allow-Origin']="*"

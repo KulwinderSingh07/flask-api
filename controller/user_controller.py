@@ -1,9 +1,12 @@
 from app import app
 from model.user_model import user_model
 from flask import request,send_file
+from model.auth_model import auth_model
 from datetime import datetime
 obj=user_model()
+auth=auth_model()
 @app.route("/user/getall")
+@auth.token_auth("/user/getall")  #jwt decorator
 def user_getall_controller():
     return obj.user_getall_model()
 
