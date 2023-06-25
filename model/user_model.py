@@ -70,6 +70,13 @@ class user_model():
             return res
         else:
             return make_response({"message":"No data found"},204)
+
+    def user_upload_avatar_model(self,uid,filepath):
+        self.curr.execute(f"update User set profile_image_url='{filepath}' where id='{uid}'")
+        if self.curr.rowcount>0:
+            return make_response({"message":"File uploaded succesfully"},201)
+        else:
+            return make_response({"message":"Mothing to upload"},202)
         
 
 

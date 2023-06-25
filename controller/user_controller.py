@@ -1,6 +1,7 @@
 from app import app
 from model.user_model import user_model
 from flask import request
+from datetime import datetime
 obj=user_model()
 @app.route("/user/getall")
 def user_getall_controller():
@@ -28,4 +29,15 @@ def user_patch_controller(id):
 def user_pagination_controller(limit,page):
     return obj.user_pagination_model(limit,page)
 
+@app.route("/user/<uid>/upload/avatar",methods=["PUT"])
+def user_uploadAvtar_controller(uid):
+    file=request.files['avatar']
+    uniqueFilename=str(datetime.now().timestamp()).replace(".","")
+    print(file)
+    print(uid)
+    splitFilename=file.filename.split(".")
+    ext=splitFilename[len(splitFilename)-1]
+    final_file_path=f"uploads/{uniqueFilename}.{ext}"
+    file.save(final_file_path)
+    return obj.user_upload_avatar_model(uid,final_file_path)
 
