@@ -1,7 +1,9 @@
 import mysql.connector
 import json
 from flask import make_response
+from datetime import datetime,timedelta
 import os
+import jwt
 class user_model():
     def __init__(self):
         try:
@@ -77,6 +79,15 @@ class user_model():
             return make_response({"message":"File uploaded succesfully"},201)
         else:
             return make_response({"message":"Mothing to upload"},202)
-        
-
-
+    
+    def user_login_model(self,data):
+        self.curr.execute(f"select id,name,email,phone,profile_image_url,role_id from User where email='{data['email']}' and password='{data['password']}'")
+        userdata=self.curr.fetchall()
+        exp_time=datetime.now()+timedelta(minutes=15)
+        exp_epoch_time=exp_time.timestamp()
+        payload={
+            "payload":userdata,
+            "exp":exp_epoch_time
+        }
+        token=jwt.encode(payload,"kulwinder",algorithm="HS256")
+        return make_response({"token":token},200)

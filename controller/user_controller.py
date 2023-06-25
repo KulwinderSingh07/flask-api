@@ -45,3 +45,7 @@ def user_uploadAvtar_controller(uid):
 def user_getavatar_controller(filename):
     return send_file(f"uploads/{filename}")
 
+@app.route("/user/login",methods=["POST"])
+def user_login_controller():
+    return obj.user_login_model(request.form)
+
