@@ -1,6 +1,7 @@
 import mysql.connector
 import json
 from flask import make_response
+import os
 class user_model():
     def __init__(self):
         try:
@@ -56,4 +57,19 @@ class user_model():
             return make_response({"message":"updated attributes succesfully sussesfully"},200)
         else:
             return make_response({"message":"Failed to update user attributes sussesfully"},202)
+        
+    def user_pagination_model(self,limit,page):
+        limit=int(limit)
+        page=int(page)
+        start=(page*limit)-limit
+        qry=f"select * from User limit {start},{limit}"
+        self.curr.execute(qry)
+        result=self.curr.fetchall()
+        if self.curr.rowcount>0:
+            res= make_response({"payload":result,"page_no":page,"limit":limit},200)
+            return res
+        else:
+            return make_response({"message":"No data found"},204)
+        
+
 

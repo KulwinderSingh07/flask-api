@@ -24,4 +24,8 @@ def delete_user(id):
 def user_patch_controller(id):
     return obj.user_patch_model(request.form,id)
 
+@app.route("/user/getall/limit/<limit>/page/<page>" ,methods=["GET"])
+def user_pagination_controller(limit,page):
+    return obj.user_pagination_model(limit,page)
+
 
