@@ -15,3 +15,13 @@ def user_addone_controller():
 def user_update_controller():
     # print(request.form)
     return obj.user_updateone_model(request.form)
+
+@app.route("/user/delete/<id>", methods=["DELETE"])
+def delete_user(id):
+    return obj.delete_user_model(id)
+
+@app.route("/user/patch/<id>", methods=["PATCH"])
+def user_patch_controller(id):
+    return obj.user_patch_model(request.form,id)
+
+
