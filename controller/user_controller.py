@@ -52,3 +52,9 @@ def user_getavatar_controller(filename):
 def user_login_controller():
     return obj.user_login_model(request.form)
 
+@app.route("/user/addmany",methods=["POST"])
+# @auth.token_auth()
+def user_addmultiple_controller():
+    return obj.user_addmultiple_model(request.json)
+
+

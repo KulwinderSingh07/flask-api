@@ -29,11 +29,11 @@ class user_model():
     def user_addone_model(self,data):
         # print(data["email"])
         # self.curr.execute("select * from User")
-        self.curr.execute(f"insert into User(name,email,phone,password) values('{data['name']}','{data['email']}','{data['phone']}','{data['password']}')")
+        self.curr.execute(f"insert into User(name,email,phone,password,role_id) values('{data['name']}','{data['email']}','{data['phone']}','{data['password']}','{data['role_id']}')")
         return make_response({"message":"user created succesfully"},201)
 
     def user_updateone_model(self,data):
-        self.curr.execute(f"update User set name='{data['name']}', email='{data['email']}', phone='{data['phone']}', password='{data['password']}', role='{data['role']}' where id={data['id']}")
+        self.curr.execute(f"update User set name='{data['name']}', email='{data['email']}', phone='{data['phone']}', password='{data['password']}', role_id='{data['role_id']}' where id={data['id']}")
         print(self.curr.rowcount)
         if self.curr.rowcount>0:
             return make_response({"message":"user updated succesfully"},201)
@@ -92,3 +92,17 @@ class user_model():
         }
         token=jwt.encode(payload,"kulwinder",algorithm="HS256")
         return make_response({"token":token},200)
+    
+    def user_addmultiple_model(self,data):
+        qry="insert into User(name,email,phone,password,role_id) values "
+        for userdata in data:
+            print(userdata)
+            qry += f" ('{userdata['name']}', '{userdata['email']}', '{userdata['phone']}','{userdata['password']}',{userdata['role_id']}),"
+        finalqry=qry.rstrip(",")
+        # return "User model many"
+        self.curr.execute(finalqry)
+        if self.curr.rowcount>0:
+            return make_response({"message":"User created"},201)
+        else:
+            return make_response({"Message":"Error while posting data"},202)
+
