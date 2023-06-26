@@ -6,7 +6,7 @@ from datetime import datetime
 obj=user_model()
 auth=auth_model()
 @app.route("/user/getall")
-@auth.token_auth("/user/getall")  #jwt decorator
+@auth.token_auth()  #jwt decorator
 def user_getall_controller():
     return obj.user_getall_model()
 

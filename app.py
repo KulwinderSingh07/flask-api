@@ -1,10 +1,8 @@
 from flask import Flask,Response
-from dotenv import load_dotenv
-load_dotenv()
-import os
 app=Flask(__name__)
 
 # print(os.getenv("HOST"))
+app.config.from_prefixed_env()
 @app.route("/")
 def welcome():
     return "HEllo word"
